@@ -22,6 +22,8 @@ import postsReducer from './features/Posts/postsSlice';
 import intervalSlice from './features/Interval/intervalSlice';
 import controlsSlice from './features/Controls/controlsSlice';
 import todosSlice from './features/Todo/todoSlice';
+import productsSlice from './features/Products/productsSlice';
+import basketSlice from './features/Basket/basketSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
   interval: intervalSlice,
   control: controlsSlice,
   todos: todosSlice,
+  products: productsSlice,
+  basket: basketSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -44,7 +48,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    thunk: false,
+    // thunk: false,
     serializableCheck: {
       ignoredActions: [
         FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,

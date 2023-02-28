@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'https://jsonplaceholder.typicode.com';
+// const baseURL = 'https://jsonplaceholder.typicode.com';
+const baseURL = 'https://fakestoreapi.com/products';
 
 const instance = axios.create({
   baseURL,

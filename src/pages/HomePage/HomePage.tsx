@@ -1,57 +1,43 @@
 import { FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Month } from '../../components/Month';
-import { buildInterval } from '../../helpers/buildInterval';
 import {
-  selectCurrentDate,
-  selectEndInterval,
-  selectFormat,
-  selectStartInterval,
-  setCurrentDate,
-  setFormat,
-  setIntervalCalendar,
-} from '../../store/features/Interval/intervalSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { FORMAT } from '../../constants/FORMAT';
-import { Year } from '../../components/Year';
-import { Day } from '../../components/Day';
-import { selectTodos } from '../../store/features/Todo/todoSlice';
+  useAppDispatch,
+  useAppSelector,
+} from '../../store/hooks';
+import {
+  getProductsAsync,
+  selectProducts,
+} from '../../store/features/Products/productsSlice';
+import { Card } from '../../components/Card';
+import { Product } from '../../type/Product';
 
 const Wrapper = styled.div`
-  max-width: 1200px;
   margin: 0 auto;
+  grid-template-columns: repeat(4, minmax(400px, 1fr));
+  gap: 20px;
+  margin: 0 auto;
+  padding: 20px;
 `;
 
 export const HomePage: FunctionComponent = () => {
   const dispatch = useAppDispatch();
-  const currentDate = useAppSelector(selectCurrentDate);
-  const start = useAppSelector(selectStartInterval);
-  const end = useAppSelector(selectEndInterval);
-  const interval = buildInterval(start, end);
-  const format = useAppSelector(selectFormat);
-  const todos = useAppSelector(selectTodos);
-
-  // eslint-disable-next-line no-console
-  console.log(todos);
+  const products = useAppSelector(selectProducts);
 
   useEffect(() => {
-    if (!currentDate) {
-      dispatch(setCurrentDate());
-      dispatch(setFormat(FORMAT.MONTH));
+    if (!products.length) {
+      dispatch(getProductsAsync());
     }
-
-    dispatch(setIntervalCalendar());
   }, []);
 
   return (
     <Wrapper>
-      {format === FORMAT.YEAR && <Year interval={interval} />}
-
-      {(format === FORMAT.MONTH || format === FORMAT.WEEK)
-      && <Month interval={interval} />}
-
-      {format === FORMAT.DAY && <Day startDay={interval[0]} />}
+      {products.length > 0 && products.map((product: Product) => (
+        <Card
+          key={product.id}
+          product={product}
+        />
+      ))}
     </Wrapper>
   );
 };

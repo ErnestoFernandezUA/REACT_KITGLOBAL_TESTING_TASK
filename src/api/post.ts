@@ -1,4 +1,4 @@
-import { client } from '../utils/axiosClient';
+import { client } from './axiosClient';
 import { Post } from '../type/Post';
 
 export const getAllPosts = () => client.get<Post[]>('/posts/');

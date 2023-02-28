@@ -1,4 +1,4 @@
-import { client } from '../utils/axiosClient';
+import { client } from './axiosClient';
 import { User } from '../type/User';
 
 export const getAllUsers = () => client.get<User[]>('/users');

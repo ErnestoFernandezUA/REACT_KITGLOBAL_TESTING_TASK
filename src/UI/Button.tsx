@@ -15,6 +15,6 @@ export const Button = styled.button`
   font-family: 'Raleway', sans-serif;
 
   &:hover{
-    background-color: #e6e6e6;
+    text-decoration: underline;
   }
 `;

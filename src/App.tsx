@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 import { NotFound } from './pages/NotFound';
 import { HomePage } from './pages/HomePage/HomePage';
-import { PostPage } from './pages/PostPage/PostPage';
+// import { PostPage } from './pages/PostPage/PostPage';
 import { Controls } from './components/Controls';
+import { BasketPage } from './pages/BasketPage';
 
 const Wrapper = styled.div`
   margin: 0;
@@ -14,14 +15,14 @@ const Wrapper = styled.div`
   `;
 
 const Header = styled.header`
-  max-width: 1200px;
+  max-width: 1270px;
   margin: 0 auto;
   text-align: center;
   margin-bottom: 1rem;
 `;
 
 const Main = styled.main`
-  max-width: 1200px;
+  max-width: 1270px;
   margin: 0 auto;
 `;
 
@@ -29,7 +30,7 @@ function App() {
   return (
     <Wrapper>
       <Header>
-        <h1>Calendar</h1>
+        <h1>Shop</h1>
         <Controls />
       </Header>
 
@@ -50,14 +51,20 @@ export const router = createHashRouter([
       {
         path: '/',
         element: <HomePage />,
-        id: 'homepage',
-        errorElement: <>Error on Homepage</>,
+        id: 'homePage',
+        errorElement: <>Error on HomePage</>,
       },
       {
-        path: '/post/:id',
-        element: <PostPage />,
-        errorElement: <>Error on PostPage</>,
+        path: '/basket',
+        element: <BasketPage />,
+        id: 'basketPage',
+        errorElement: <>Error on BasketPage</>,
       },
+      // {
+      //   path: '/post/:id',
+      //   element: <PostPage />,
+      //   errorElement: <>Error on PostPage</>,
+      // },
     ],
   },
 ]);
