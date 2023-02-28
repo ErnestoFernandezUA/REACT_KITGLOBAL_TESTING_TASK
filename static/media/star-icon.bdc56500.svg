@@ -1,0 +1,10 @@
+ <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="20px"
+    viewBox="0 0 24 24"
+    width="20px"
+    fill="#FFD700"
+  >
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path d="M12 15.4l3.09 1.83-.74-3.41L18 10.64l-3.41-2.89L12 5.4 9.41 7.75 6.59 7.75 6 4.34 3 6.55l.75 3.41L3.91 10.6l3.09 1.83-.75 3.41L12 15.4z" />
+  </svg>
