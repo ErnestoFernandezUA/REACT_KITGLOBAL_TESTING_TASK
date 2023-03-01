@@ -150,3 +150,5 @@ export const selectTotalCount = (state: RootState) => state.basket.totalCount;
 export const selectShowSusses = (state: RootState) => state.basket.showSuccess;
 export const selectStatusPosting
 = (state: RootState) => state.basket.statusPosting;
+export const selectBasketError
+= (state: RootState) => state.basket.error;

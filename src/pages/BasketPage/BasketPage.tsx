@@ -14,17 +14,15 @@ import {
   deleteProductInBasket,
   removeProductFromBasket,
   selectBasket,
+  selectBasketError,
   selectShowSusses,
+  selectStatusPosting,
   selectTotalSum,
   sendOrderToServer,
 } from '../../store/features/Basket/basketSlice';
 import { Button } from '../../UI/Button';
 import { Product } from '../../type/Product';
 import { TitleMessage } from '../../components/TitleMassage';
-import {
-  selectProductsError,
-  selectProductsStatusLoading,
-} from '../../store/features/Products/productsSlice';
 import { Loader } from '../../components/Loader';
 
 const Basket = styled.div`
@@ -79,8 +77,8 @@ export const BasketPage: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
   const total = useAppSelector(selectTotalSum);
-  const isLoading = useAppSelector(selectProductsStatusLoading) === 'loading';
-  const error = useAppSelector(selectProductsError);
+  const isLoading = useAppSelector(selectStatusPosting) === 'posting';
+  const error = useAppSelector(selectBasketError);
   const showSuccess = useAppSelector(selectShowSusses);
   const navigate = useNavigate();
 
