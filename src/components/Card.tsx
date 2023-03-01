@@ -98,6 +98,7 @@ const CardTitle = styled.h2<{ format?: string }>`
     margin-top: 20px;
     margin-bottom: 40px;
     max-width: none;
+    -webkit-line-clamp: inherit;
     text-align: center;
     overflow: visible;
     text-overflow: none;
@@ -214,7 +215,7 @@ export const Card: FunctionComponent<CardProps> = ({
 
       </CardContent>
       <CardButtonBuy onClick={e => buyHandler(e)} format={format}>
-        Buy
+        Add
       </CardButtonBuy>
     </CardContainer>
   );
