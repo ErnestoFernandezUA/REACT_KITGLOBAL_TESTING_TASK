@@ -16,11 +16,12 @@ import { TitleMessage } from '../../components/TitleMassage';
 import { selectTotalCount } from '../../store/features/Basket/basketSlice';
 
 const Wrapper = styled.div`
-  margin: 0 auto;
-  grid-template-columns: repeat(4, minmax(400px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(4, minmax(300px, 1fr));
   gap: 20px;
-  margin: 0 auto;
-  padding: 20px;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const HomePage: FunctionComponent = () => {
