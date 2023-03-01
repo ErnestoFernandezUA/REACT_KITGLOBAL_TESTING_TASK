@@ -4,16 +4,17 @@ import {
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IoCart, IoCartOutline, IoChevronBack } from 'react-icons/io5';
-import { Button } from '../UI/Button';
-import { useAppSelector } from '../store/hooks';
 import { selectBasket } from '../store/features/Basket/basketSlice';
-// import {
-//   useAppDispatch,
-//   useAppSelector,
-// } from '../store/hooks';
+import { Button } from '../UI/Button';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../store/hooks';
+import {
+  loadProducts, selectProducts,
+} from '../store/features/Products/productsSlice';
 
 const Wrapper = styled.div`
-  /* max-width: 1200px; */
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -22,33 +23,31 @@ const Wrapper = styled.div`
 `;
 
 export const Controls: FunctionComponent = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
-
-  // eslint-disable-next-line no-console
-  console.log(basket);
+  const products = useAppSelector(selectProducts);
 
   return (
     <Wrapper>
-      <Link
-        to="/"
-        onClick={() => {
-          // eslint-disable-next-line no-console
-          console.log('click link back');
-        }}
-      >
+      <Link to="/">
         <IoChevronBack />
       </Link>
 
-      <Button>
-        <Link
-          to="basket"
+      {!products.length && (
+        <Button
+          onClick={() => dispatch(loadProducts())}
         >
-          {basket.length
-            ? <IoCart size="2rem" color="black" />
-            : <IoCartOutline size="2rem" color="grey" />}
-        </Link>
-      </Button>
+          Load products
+        </Button>
+      )}
+
+      <Link
+        to="basket"
+      >
+        {basket.length
+          ? <IoCart size="2rem" color="black" />
+          : <IoCartOutline size="2rem" color="grey" />}
+      </Link>
 
     </Wrapper>
   );

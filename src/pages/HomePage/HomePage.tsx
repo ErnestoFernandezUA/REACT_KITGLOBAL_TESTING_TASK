@@ -2,15 +2,17 @@ import { FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 
 import {
-  useAppDispatch,
+  // useAppDispatch,
   useAppSelector,
 } from '../../store/hooks';
 import {
-  getProductsAsync,
-  selectProducts,
+  // getProductsAsync,
+  selectProducts, selectProductsError, selectProductsStatusLoading,
 } from '../../store/features/Products/productsSlice';
 import { Card } from '../../components/Card';
 import { Product } from '../../type/Product';
+import { Loader } from '../../components/Loader';
+import { TitleMessage } from '../../components/TitleMassage';
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -21,14 +23,27 @@ const Wrapper = styled.div`
 `;
 
 export const HomePage: FunctionComponent = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
+  const isLoading = useAppSelector(selectProductsStatusLoading) === 'loading';
+  const error = useAppSelector(selectProductsError);
+
+  // eslint-disable-next-line no-console
+  console.log('isLoading', isLoading);
 
   useEffect(() => {
-    if (!products.length) {
-      dispatch(getProductsAsync());
-    }
+    // if (!products.length) {
+    //   dispatch(getProductsAsync());
+    // }
   }, []);
+
+  if (error) {
+    return <TitleMessage message={error} status="error" />;
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Wrapper>

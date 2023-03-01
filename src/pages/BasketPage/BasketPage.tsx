@@ -62,7 +62,6 @@ const BasketPositionCost = styled.div`
 `;
 
 export const BasketPage: FunctionComponent = () => {
-  // const { id } = useParams();
   const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
   const total = useAppSelector(selectTotal);
@@ -71,7 +70,13 @@ export const BasketPage: FunctionComponent = () => {
     dispatch(addProductToBasket({ product, count: 1 }));
   };
 
-  const removeHandler = (product: Product) => {
+  const removeHandler = (product: Product, count: number) => {
+    if (count === 1) {
+      dispatch(deleteProductInBasket({ product }));
+
+      return;
+    }
+
     dispatch(removeProductFromBasket({ product, count: 1 }));
   };
 
@@ -84,28 +89,30 @@ export const BasketPage: FunctionComponent = () => {
       {basket.length ? (
         <Basket>
           <BasketList>
-            {basket.map(position => (
-              <BasketPosition key={position.product.id}>
+            {basket.map(pos => (
+              <BasketPosition key={pos.product.id}>
                 <BasketPositionTitle>
-                  {position.product.title}
+                  {pos.product.title}
                 </BasketPositionTitle>
 
                 <BasketPositionControls>
-                  <Button onClick={() => removeHandler(position.product)}>
+                  <Button
+                    onClick={() => removeHandler(pos.product, pos.countOrdered)}
+                  >
                     <IoRemove size="2rem" />
                   </Button>
 
-                  {position.countOrdered}
+                  {pos.countOrdered}
 
-                  <Button onClick={() => addHandler(position.product)}>
+                  <Button onClick={() => addHandler(pos.product)}>
                     <IoAdd size="2rem" />
                   </Button>
-                  <Button onClick={() => deleteHandler(position.product)}>
+                  <Button onClick={() => deleteHandler(pos.product)}>
                     <IoTrash size="2rem" />
                   </Button>
 
                   <BasketPositionCost>
-                    {`$${Math.round(position.countOrdered * (+position.product.price) * 100) / 100}`}
+                    {`$${Math.round(pos.countOrdered * (+pos.product.price) * 100) / 100}`}
                   </BasketPositionCost>
                 </BasketPositionControls>
               </BasketPosition>

@@ -30,7 +30,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['interval', 'todos'],
+  whitelist: ['basket', 'product'],
   // blacklist: ['interval'],
 };
 
@@ -52,7 +52,7 @@ export const store = configureStore({
     serializableCheck: {
       ignoredActions: [
         FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
-        'posts',
+        // 'posts',
       ],
     },
   }).concat(sagaMiddleware),

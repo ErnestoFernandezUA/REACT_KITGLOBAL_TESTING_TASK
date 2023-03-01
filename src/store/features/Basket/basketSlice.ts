@@ -42,8 +42,10 @@ const basketSlice = createSlice({
         });
       }
 
-      state.total = state.storage.reduce((accumulator, elem) => accumulator
-       + Number(elem.product.price) * elem.countOrdered, 0);
+      state.total = Math.ceil(
+        state.storage.reduce((accumulator, elem) => accumulator
+        + Number(elem.product.price) * elem.countOrdered, 0) * 100,
+      ) / 100;
     },
     removeProductFromBasket: (
       state: BasketState,
@@ -58,8 +60,10 @@ const basketSlice = createSlice({
         && state.storage[productIndexInBasket].countOrdered >= count) {
         state.storage[productIndexInBasket].countOrdered -= count;
 
-        state.total = state.storage.reduce((accumulator, elem) => accumulator
-       + Number(elem.product.price) * elem.countOrdered, 0);
+        state.total = Math.ceil(
+          state.storage.reduce((accumulator, elem) => accumulator
+          + Number(elem.product.price) * elem.countOrdered, 0) * 100,
+        ) / 100;
       }
     },
     deleteProductInBasket: (
@@ -74,8 +78,10 @@ const basketSlice = createSlice({
       if (productIndexInBasket >= 0) {
         state.storage.splice(productIndexInBasket, 1);
 
-        state.total = state.storage.reduce((accumulator, elem) => accumulator
-       + Number(elem.product.price) * elem.countOrdered, 0);
+        state.total = Math.ceil(
+          state.storage.reduce((accumulator, elem) => accumulator
+          + Number(elem.product.price) * elem.countOrdered, 0) * 100,
+        ) / 100;
       }
     },
     clearBasket: () => {
