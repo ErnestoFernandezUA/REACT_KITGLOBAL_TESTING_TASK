@@ -27,7 +27,10 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['basket', 'products'],
+  whitelist: [
+    'basket',
+    // 'products', // don't save products state in local storage
+  ],
   // blacklist: ['interval'],
 };
 
