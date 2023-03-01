@@ -52,6 +52,10 @@ const BasketPosition = styled.div`
 
 const BasketPositionTitle = styled.div`
   width: 500px;
+
+  & > button {
+    text-align: left;
+  }
 `;
 
 const BasketPositionControls = styled.div`
