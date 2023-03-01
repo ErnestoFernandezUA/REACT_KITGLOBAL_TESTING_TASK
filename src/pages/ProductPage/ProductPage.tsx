@@ -25,7 +25,7 @@ export const ProductPage: FunctionComponent = () => {
 
   return (
     <Wrapper>
-      {product && <Card product={product} />}
+      {product && <Card product={product} format="page" />}
     </Wrapper>
   );
 };

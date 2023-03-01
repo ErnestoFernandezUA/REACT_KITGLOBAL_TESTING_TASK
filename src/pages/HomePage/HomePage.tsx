@@ -35,7 +35,7 @@ export const HomePage: FunctionComponent = () => {
     // but after sent order products will not reloading
     // and will run default reload if basket is not empty
     // in normal commercial we reload data after each routing on page
-    if (!isEmptyBasket) {
+    if (!isEmptyBasket && !products.length) {
       dispatch(loadProducts());
     }
   }, []);
