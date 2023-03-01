@@ -27,7 +27,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['basket', 'product'],
+  whitelist: ['basket', 'products'],
   // blacklist: ['interval'],
 };
 
@@ -42,7 +42,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    // thunk: false,
+    thunk: false,
     serializableCheck: {
       ignoredActions: [
         FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
