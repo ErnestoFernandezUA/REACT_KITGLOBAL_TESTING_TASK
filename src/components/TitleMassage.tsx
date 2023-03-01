@@ -14,7 +14,7 @@ export const Wrapper = styled.div<{ status: string }>`
 
 interface Props {
   message: string;
-  status: 'error' | 'casual' | undefined
+  status: 'error' | 'casual' | undefined;
 }
 
 export const TitleMessage: FunctionComponent<Props> = ({

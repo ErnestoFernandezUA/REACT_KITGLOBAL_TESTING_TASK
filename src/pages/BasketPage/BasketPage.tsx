@@ -16,6 +16,7 @@ import {
 } from '../../store/features/Basket/basketSlice';
 import { Button } from '../../UI/Button';
 import { Product } from '../../type/Product';
+import { TitleMessage } from '../../components/TitleMassage';
 
 const Basket = styled.div`
   & h2 {
@@ -54,7 +55,6 @@ const BasketPositionCost = styled.div`
   margin-left: 30px;
   width: 100px;
   text-align: right;
-
 `;
 
 export const BasketPage: FunctionComponent = () => {
@@ -120,9 +120,7 @@ export const BasketPage: FunctionComponent = () => {
           </BasketTotal>
         </Basket>
       ) : (
-        <Basket>
-          <h2>Basket is empty</h2>
-        </Basket>
+        <TitleMessage message="Basket is empty" status={undefined} />
       )}
     </div>
   );

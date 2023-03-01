@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../..';
 import { Product } from '../../../type/Product';
-// import { getAllProducts } from '../../../api/products';
 
 export interface ProductsState {
   storage: Product[];
@@ -16,18 +15,6 @@ const initialState: ProductsState = {
   statusLoading: 'idle',
   error: null,
 };
-
-// export const getProductsAsync = createAsyncThunk(
-//   'products/fetchProducts',
-//   async () => {
-//     const response: Product[] = await getAllProducts();
-
-//     // eslint-disable-next-line no-console
-//     // console.log(response);
-
-//     return response;
-//   },
-// );
 
 const productsSlice = createSlice({
   name: 'products',
@@ -42,9 +29,6 @@ const productsSlice = createSlice({
       state: ProductsState,
       action: PayloadAction<'idle' | 'loading' | 'failed'>,
     ) => {
-      // eslint-disable-next-line no-console
-      console.log('setStatus', action.payload);
-
       state.statusLoading = action.payload;
     },
     setError: (state: ProductsState, action: PayloadAction<string>) => {
@@ -55,22 +39,6 @@ const productsSlice = createSlice({
       return { ...state, ...initialState };
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(getProductsAsync.pending, (state: ProductsState) => {
-  //       state.statusLoading = 'loading';
-  //     })
-  //     .addCase(getProductsAsync.fulfilled, (state, action) => {
-  //       state.storage.push(...action.payload);
-  //       state.statusLoading = 'idle';
-  //     })
-  //     .addCase(getProductsAsync.rejected, (state, action) => {
-  //       state.statusLoading = 'failed';
-
-  //       // eslint-disable-next-line no-console
-  //       console.log(action);
-  //     });
-  // },
 });
 
 export default productsSlice.reducer;
