@@ -5,6 +5,7 @@ import { NotFound } from './pages/NotFound';
 import { HomePage } from './pages/HomePage/HomePage';
 import { Controls } from './components/Controls';
 import { BasketPage } from './pages/BasketPage';
+import { ProductPage } from './pages/ProductPage';
 
 const Wrapper = styled.div`
   margin: 0;
@@ -60,11 +61,11 @@ export const router = createHashRouter([
         errorElement: <>Error on BasketPage</>,
       },
       // there we can add page for each product
-      // {
-      //   path: '/product/:id',
-      //   element: <ProductPage />,
-      //   errorElement: <>Error on ProductPage</>,
-      // },
+      {
+        path: '/product/:id',
+        element: <ProductPage />,
+        errorElement: <>Error on ProductPage</>,
+      },
     ],
   },
 ]);

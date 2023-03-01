@@ -1,12 +1,14 @@
 import { FunctionComponent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { Product } from '../type/Product';
 import StarIcon from '../assets/star-icon.svg';
 import { Button } from '../UI/Button';
 import { useAppDispatch } from '../store/hooks';
 import { addProductToBasket } from '../store/features/Basket/basketSlice';
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{ format?: string }>`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -19,16 +21,20 @@ const CardContainer = styled.div`
   margin: 10px;
   box-sizing: border-box;
   padding: 0 0 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-const CardImage = styled.img`
+const CardImage = styled.img<{ format?: string }>`
   width: 100%;
   height: 250px;
   object-fit: cover;
   overflow: hidden;
 `;
 
-const CardContent = styled.div`
+const CardContent = styled.div<{ format?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,12 +42,12 @@ const CardContent = styled.div`
   padding: 20px;
 `;
 
-const CardCategory = styled.div`
+const CardCategory = styled.div<{ format?: string }>`
   font-size: 12px;
   padding: 0;
 `;
 
-const CardTitle = styled.h2`
+const CardTitle = styled.h2<{ format?: string }>`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -57,7 +63,7 @@ const CardTitle = styled.h2`
   height: 48px;
 `;
 
-const CardDescription = styled.p`
+const CardDescription = styled.p<{ format?: string }>`
   font-size: 14px;
   text-align: center;
   max-height: 50px;
@@ -71,67 +77,74 @@ const CardDescription = styled.p`
   overflow-wrap: break-word;
 `;
 
-const CardPrice = styled.h3`
+const CardPrice = styled.h3<{ format?: string }>`
   font-size: 24px;
   font-weight: bold;
   margin-top: 10px;
 `;
 
-const CardRating = styled.div`
+const CardRating = styled.div<{ format?: string }>`
   display: flex;
   align-items: center;
   margin-top: 10px;
 `;
 
-const CardRatingCount = styled.span`
+const CardRatingCount = styled.span<{ format?: string }>`
   font-size: 14px;
   margin-left: 5px;
 `;
 
 interface CardProps {
   product: Product;
+  // eslint-disable-next-line react/require-default-props
+  format?: 'card' | 'page' | undefined;
 }
 
 export const Card: FunctionComponent<CardProps> = ({
   product,
+  format = 'card',
 }) => {
   const {
-    category, description, image, price, rating, title,
+    category, description, image, price, rating, title, id,
   } = product;
   const { count } = rating;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const buyHandler = () => {
+  const buyHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+
     dispatch(addProductToBasket({
       product,
       count: 1,
     }));
   };
 
-  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify(product));
+  const cardToggle = () => {
+    navigate(`product/${id}`);
   };
 
   return (
     <CardContainer
-      onDragStart={onDragStart}
+      onClick={cardToggle}
+      format={format}
     >
-      <CardImage src={image} alt={description} />
-      <CardContent>
-        <CardCategory>{category}</CardCategory>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-        <CardPrice>
+      <CardImage src={image} alt={description} format={format} />
+      <CardContent format={format}>
+        <CardCategory format={format}>{category}</CardCategory>
+        <CardTitle format={format}>{title}</CardTitle>
+        <CardDescription format={format}>{description}</CardDescription>
+        <CardPrice format={format}>
           $
           {price}
         </CardPrice>
-        <CardRating>
+        <CardRating format={format}>
           <img src={StarIcon} alt="star icon" />
-          <CardRatingCount>{`${count} available`}</CardRatingCount>
+          <CardRatingCount format={format}>{`${count} available`}</CardRatingCount>
         </CardRating>
       </CardContent>
 
-      <Button onClick={buyHandler}>Buy</Button>
+      <Button onClick={e => buyHandler(e)}>Buy</Button>
     </CardContainer>
   );
 };

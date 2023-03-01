@@ -132,7 +132,9 @@ export const BasketPage: FunctionComponent = () => {
             {basket.map(pos => (
               <BasketPosition key={pos.product.id}>
                 <BasketPositionTitle>
-                  {pos.product.title}
+                  <Button onClick={() => navigate(`/product/${pos.product.id}`)}>
+                    {pos.product.title}
+                  </Button>
                 </BasketPositionTitle>
 
                 <BasketPositionControls>
