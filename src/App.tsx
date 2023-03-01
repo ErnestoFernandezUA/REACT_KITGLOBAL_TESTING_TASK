@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { NotFound } from './pages/NotFound';
 import { HomePage } from './pages/HomePage/HomePage';
-// import { PostPage } from './pages/PostPage/PostPage';
 import { Controls } from './components/Controls';
 import { BasketPage } from './pages/BasketPage';
 

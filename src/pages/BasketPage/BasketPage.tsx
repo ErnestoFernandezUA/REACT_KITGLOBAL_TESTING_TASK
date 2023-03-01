@@ -2,10 +2,6 @@ import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { IoRemove, IoAdd, IoTrash } from 'react-icons/io5';
-// import {
-//   Link,
-//   useParams,
-// } from 'react-router-dom';
 import {
   useAppDispatch,
   useAppSelector,

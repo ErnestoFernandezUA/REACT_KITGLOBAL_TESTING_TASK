@@ -18,10 +18,10 @@ import {
 import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
 import rootSaga from './sagas/index';
-import postsReducer from './features/Posts/postsSlice';
-import intervalSlice from './features/Interval/intervalSlice';
+// import postsReducer from './features/Posts/postsSlice';
+// import intervalSlice from './features/Interval/intervalSlice';
 import controlsSlice from './features/Controls/controlsSlice';
-import todosSlice from './features/Todo/todoSlice';
+// import todosSlice from './features/Todo/todoSlice';
 import productsSlice from './features/Products/productsSlice';
 import basketSlice from './features/Basket/basketSlice';
 
@@ -35,10 +35,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  posts: postsReducer,
-  interval: intervalSlice,
+  // posts: postsReducer,
+  // interval: intervalSlice,
   control: controlsSlice,
-  todos: todosSlice,
+  // todos: todosSlice,
   products: productsSlice,
   basket: basketSlice,
 });

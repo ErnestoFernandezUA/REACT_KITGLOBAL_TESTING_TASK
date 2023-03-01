@@ -5,7 +5,6 @@ import { RootState } from '../..';
 import { Product } from '../../../type/Product';
 
 type BasketPosition = {
-  // id: number;
   product: Product;
   countOrdered: number;
 };

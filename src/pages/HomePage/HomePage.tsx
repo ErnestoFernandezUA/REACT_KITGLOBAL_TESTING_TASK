@@ -1,12 +1,10 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import {
-  // useAppDispatch,
   useAppSelector,
 } from '../../store/hooks';
 import {
-  // getProductsAsync,
   selectProducts, selectProductsError, selectProductsStatusLoading,
 } from '../../store/features/Products/productsSlice';
 import { Card } from '../../components/Card';
@@ -23,19 +21,9 @@ const Wrapper = styled.div`
 `;
 
 export const HomePage: FunctionComponent = () => {
-  // const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
   const isLoading = useAppSelector(selectProductsStatusLoading) === 'loading';
   const error = useAppSelector(selectProductsError);
-
-  // eslint-disable-next-line no-console
-  console.log('isLoading', isLoading);
-
-  useEffect(() => {
-    // if (!products.length) {
-    //   dispatch(getProductsAsync());
-    // }
-  }, []);
 
   if (error) {
     return <TitleMessage message={error} status="error" />;
