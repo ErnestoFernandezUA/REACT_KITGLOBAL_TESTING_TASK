@@ -1,16 +1,17 @@
+/* eslint-disable import/no-cycle */
 import { AxiosError } from 'axios';
-import { put, takeLeading, delay } from 'redux-saga/effects';
+import { put, delay } from 'redux-saga/effects';
 import { getAllProducts } from '../../api/products';
 import { Product } from '../../type/Product';
-// eslint-disable-next-line import/no-cycle
 import {
-  loadProducts,
-  setError, setProducts, setStatus,
+  setError,
+  setProducts,
+  setStatus,
 } from '../features/Products/productsSlice';
 
-function* workerSaga() {
+export function* getProductsSaga() {
   // eslint-disable-next-line no-console
-  console.log('workerSaga');
+  console.log('getProductsSaga');
   yield put(setStatus('loading'));
 
   try {
@@ -26,18 +27,4 @@ function* workerSaga() {
   } finally {
     yield put(setStatus('idle'));
   }
-}
-
-function* watchSaga() {
-  // eslint-disable-next-line no-console
-  console.log('watchSaga');
-
-  yield takeLeading(loadProducts().type, workerSaga);
-}
-
-export default function* root() {
-  // eslint-disable-next-line no-console
-  console.log('root saga');
-
-  yield watchSaga();
 }

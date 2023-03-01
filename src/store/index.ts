@@ -17,7 +17,7 @@ import {
 } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
-import rootSaga from './sagas/index';
+import rootSaga from './sagas/root';
 import controlsSlice from './features/Controls/controlsSlice';
 import productsSlice from './features/Products/productsSlice';
 import basketSlice from './features/Basket/basketSlice';

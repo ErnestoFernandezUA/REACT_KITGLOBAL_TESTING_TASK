@@ -59,10 +59,11 @@ export const router = createHashRouter([
         id: 'basketPage',
         errorElement: <>Error on BasketPage</>,
       },
+      // there we can add page for each product
       // {
-      //   path: '/post/:id',
-      //   element: <PostPage />,
-      //   errorElement: <>Error on PostPage</>,
+      //   path: '/product/:id',
+      //   element: <ProductPage />,
+      //   errorElement: <>Error on ProductPage</>,
       // },
     ],
   },

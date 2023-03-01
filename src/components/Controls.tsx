@@ -4,7 +4,10 @@ import {
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IoCart, IoCartOutline, IoChevronBack } from 'react-icons/io5';
-import { selectBasket } from '../store/features/Basket/basketSlice';
+import {
+  clearBasket,
+  selectBasket,
+} from '../store/features/Basket/basketSlice';
 import { Button } from '../UI/Button';
 import {
   useAppDispatch,
@@ -38,6 +41,14 @@ export const Controls: FunctionComponent = () => {
           onClick={() => dispatch(loadProducts())}
         >
           Load products
+        </Button>
+      )}
+
+      {!!basket.length && (
+        <Button
+          onClick={() => dispatch(clearBasket())}
+        >
+          Clear basket
         </Button>
       )}
 

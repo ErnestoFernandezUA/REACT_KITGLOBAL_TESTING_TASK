@@ -6,7 +6,11 @@ import {
 // eslint-disable-next-line import/no-cycle
 
 export interface ControlState {
+  // I use this state to control global UI
   popup: {
+    // like this
+    // showPopup1: boolean;
+    // showPopup2: boolean;
   },
 }
 

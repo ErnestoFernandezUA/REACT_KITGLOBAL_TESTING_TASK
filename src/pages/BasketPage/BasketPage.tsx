@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IoRemove, IoAdd, IoTrash } from 'react-icons/io5';
@@ -9,14 +10,22 @@ import {
 
 import {
   addProductToBasket,
+  clearBasket,
   deleteProductInBasket,
   removeProductFromBasket,
   selectBasket,
+  selectShowSusses,
   selectTotal,
+  sendOrderToServer,
 } from '../../store/features/Basket/basketSlice';
 import { Button } from '../../UI/Button';
 import { Product } from '../../type/Product';
 import { TitleMessage } from '../../components/TitleMassage';
+import {
+  selectProductsError,
+  selectProductsStatusLoading,
+} from '../../store/features/Products/productsSlice';
+import { Loader } from '../../components/Loader';
 
 const Basket = styled.div`
   & h2 {
@@ -57,16 +66,39 @@ const BasketPositionCost = styled.div`
   text-align: right;
 `;
 
+const OrderButton = styled(Button)`
+  margin: 100px auto;
+  font-size: 30px;
+`;
+
 export const BasketPage: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
   const total = useAppSelector(selectTotal);
+  const isLoading = useAppSelector(selectProductsStatusLoading) === 'loading';
+  const error = useAppSelector(selectProductsError);
+  const showSuccess = useAppSelector(selectShowSusses);
+  const navigate = useNavigate();
+
+  // there we watch for showSuccess from state.basket
+  // if response of order to server is success
+  // we show success message
+  // and after 3s clear basket and redirect to route homepage
+  useEffect(() => {
+    if (showSuccess) {
+      setTimeout(() => {
+        dispatch(clearBasket());
+        navigate('/');
+      }, 3000);
+    }
+  }, [showSuccess]);
 
   const addHandler = (product: Product) => {
     dispatch(addProductToBasket({ product, count: 1 }));
   };
 
   const removeHandler = (product: Product, count: number) => {
+    // delete position for the only one
     if (count === 1) {
       dispatch(deleteProductInBasket({ product }));
 
@@ -79,6 +111,18 @@ export const BasketPage: FunctionComponent = () => {
   const deleteHandler = (product: Product) => {
     dispatch(deleteProductInBasket({ product }));
   };
+
+  if (error) {
+    return <TitleMessage message={error} status="error" />;
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (showSuccess) {
+    return <TitleMessage message="Order sent" status="casual" />;
+  }
 
   return (
     <div>
@@ -118,6 +162,10 @@ export const BasketPage: FunctionComponent = () => {
             Total:&nbsp;&nbsp;&nbsp;$
             {total}
           </BasketTotal>
+
+          <OrderButton onClick={() => dispatch(sendOrderToServer())}>
+            Order
+          </OrderButton>
         </Basket>
       ) : (
         <TitleMessage message="Basket is empty" status={undefined} />
