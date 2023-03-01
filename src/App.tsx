@@ -31,7 +31,7 @@ function App() {
   return (
     <Wrapper>
       <Header>
-        <h1>Shop</h1>
+        <h1>Shop with React Saga</h1>
         <Controls />
       </Header>
 

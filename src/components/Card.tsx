@@ -165,7 +165,7 @@ const CardButtonBuy = styled(Button)<{ format?: string }>`
 interface CardProps {
   product: Product;
   // eslint-disable-next-line react/require-default-props
-  format?: 'card' | 'page' | undefined;
+  format?: 'card' | 'page';
 }
 
 export const Card: FunctionComponent<CardProps> = ({
