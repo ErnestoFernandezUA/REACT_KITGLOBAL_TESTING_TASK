@@ -15,7 +15,7 @@ import {
   removeProductFromBasket,
   selectBasket,
   selectShowSusses,
-  selectTotal,
+  selectTotalSum,
   sendOrderToServer,
 } from '../../store/features/Basket/basketSlice';
 import { Button } from '../../UI/Button';
@@ -74,7 +74,7 @@ const OrderButton = styled(Button)`
 export const BasketPage: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
-  const total = useAppSelector(selectTotal);
+  const total = useAppSelector(selectTotalSum);
   const isLoading = useAppSelector(selectProductsStatusLoading) === 'loading';
   const error = useAppSelector(selectProductsError);
   const showSuccess = useAppSelector(selectShowSusses);

@@ -29,7 +29,7 @@ export function* sendOrderSaga(): Generator<unknown, void, BasketPosition[]> {
       console.log(e.product.title, e.countOrdered);
     });
 
-    const total = yield select((state: RootState) => state.basket.total);
+    const total = yield select((state: RootState) => state.basket.totalSum);
 
     // eslint-disable-next-line no-console
     console.log('Your total sum is:', total);

@@ -7,6 +7,7 @@ import { IoCart, IoCartOutline, IoChevronBack } from 'react-icons/io5';
 import {
   clearBasket,
   selectBasket,
+  selectTotalCount,
 } from '../store/features/Basket/basketSlice';
 import { Button } from '../UI/Button';
 import {
@@ -29,6 +30,7 @@ export const Controls: FunctionComponent = () => {
   const dispatch = useAppDispatch();
   const basket = useAppSelector(selectBasket);
   const products = useAppSelector(selectProducts);
+  const count = useAppSelector(selectTotalCount);
 
   return (
     <Wrapper>
@@ -45,11 +47,16 @@ export const Controls: FunctionComponent = () => {
       )}
 
       {!!basket.length && (
-        <Button
-          onClick={() => dispatch(clearBasket())}
-        >
-          Clear basket
-        </Button>
+        <>
+          <Button
+            onClick={() => dispatch(clearBasket())}
+          >
+            Clear basket
+          </Button>
+
+          Total:
+          {count}
+        </>
       )}
 
       <Link

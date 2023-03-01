@@ -11,7 +11,8 @@ export type BasketPosition = {
 
 export interface BasketState {
   storage: BasketPosition[];
-  total: number;
+  totalSum: number;
+  totalCount: number;
   showSuccess: boolean;
   statusPosting: 'idle' | 'posting' | 'failed';
   error: string | null;
@@ -19,7 +20,8 @@ export interface BasketState {
 
 const initialState: BasketState = {
   storage: [],
-  total: 0,
+  totalSum: 0,
+  totalCount: 0,
   showSuccess: false,
   statusPosting: 'idle',
   error: null,
@@ -48,10 +50,13 @@ const basketSlice = createSlice({
       }
 
       // update total sum after all add operation
-      state.total = Math.ceil(
+      state.totalSum = Math.ceil(
         state.storage.reduce((accumulator, elem) => accumulator
         + Number(elem.product.price) * elem.countOrdered, 0) * 100,
       ) / 100;
+
+      state.totalCount = state.storage.reduce((accumulator, elem) => accumulator
+        + elem.countOrdered, 0);
     },
     removeProductFromBasket: (
       state: BasketState,
@@ -67,10 +72,15 @@ const basketSlice = createSlice({
         state.storage[productIndexInBasket].countOrdered -= count;
 
         // update total sum after each remove operation
-        state.total = Math.ceil(
+        state.totalSum = Math.ceil(
           state.storage.reduce((accumulator, elem) => accumulator
           + Number(elem.product.price) * elem.countOrdered, 0) * 100,
         ) / 100;
+
+        state.totalCount = state.storage.reduce(
+          (accumulator, elem) => accumulator + elem.countOrdered,
+          0,
+        );
       }
     },
     deleteProductInBasket: (
@@ -86,10 +96,15 @@ const basketSlice = createSlice({
         state.storage.splice(productIndexInBasket, 1);
 
         // update total sum after each delete operation
-        state.total = Math.ceil(
+        state.totalSum = Math.ceil(
           state.storage.reduce((accumulator, elem) => accumulator
           + Number(elem.product.price) * elem.countOrdered, 0) * 100,
         ) / 100;
+
+        state.totalCount = state.storage.reduce(
+          (accumulator, elem) => accumulator + elem.countOrdered,
+          0,
+        );
       }
     },
     sendOrderToServer: () => {
@@ -130,7 +145,8 @@ export const {
 } = basketSlice.actions;
 
 export const selectBasket = (state: RootState) => state.basket.storage;
-export const selectTotal = (state: RootState) => state.basket.total;
+export const selectTotalSum = (state: RootState) => state.basket.totalSum;
+export const selectTotalCount = (state: RootState) => state.basket.totalCount;
 export const selectShowSusses = (state: RootState) => state.basket.showSuccess;
 export const selectStatusPosting
 = (state: RootState) => state.basket.statusPosting;
