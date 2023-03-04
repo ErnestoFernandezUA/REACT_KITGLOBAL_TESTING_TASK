@@ -6,14 +6,16 @@ import {
   useAppSelector,
 } from '../../store/hooks';
 import {
-  loadProducts,
-  selectProducts, selectProductsError, selectProductsStatusLoading,
+  selectProducts,
+  selectProductsError,
+  selectProductsStatusLoading,
 } from '../../store/features/Products/productsSlice';
 import { Card } from '../../components/Card';
 import { Product } from '../../type/Product';
 import { Loader } from '../../components/Loader';
 import { TitleMessage } from '../../components/TitleMassage';
 import { selectTotalCount } from '../../store/features/Basket/basketSlice';
+import { loadProducts } from '../../store/sagas/sagaActions';
 
 const Wrapper = styled.div`
   display: grid;

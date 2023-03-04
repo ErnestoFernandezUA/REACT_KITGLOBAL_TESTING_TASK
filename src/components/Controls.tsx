@@ -15,8 +15,9 @@ import {
   useAppSelector,
 } from '../store/hooks';
 import {
-  loadProducts, selectProducts,
+  selectProducts,
 } from '../store/features/Products/productsSlice';
+import { loadProducts } from '../store/sagas/sagaActions';
 
 const Wrapper = styled.div`
   margin: 0 auto;
